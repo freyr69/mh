@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Mistress
+        psr4_prefix: Mistress
+        src_path: app
