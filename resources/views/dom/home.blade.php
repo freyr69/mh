@@ -20,7 +20,7 @@
 
 <div class="row">
     <div class="small-3 small-centered columns">
-        <a class="button alert" href="dom/punish">Add Punishment</a>
+        <a class="button alert" href="dom/punish">Assign Punishment</a>
     </div>
 </div>
 

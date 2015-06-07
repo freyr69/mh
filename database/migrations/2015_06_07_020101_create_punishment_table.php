@@ -13,7 +13,7 @@ class CreatePunishmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('punishment', function (Blueprint $table) {
+        Schema::create('punishments', function (Blueprint $table) {
             /* @var $table \Illuminate\Database\Schema\Blueprint */
             $table->increments('id');
             $table->string('name');

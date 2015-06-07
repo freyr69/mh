@@ -3,9 +3,12 @@
 namespace Mistress\Http\Controllers\Dom;
 
 use Auth;
-use Mistress\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Carbon\Carbon;
 use Flash;
+use Input;
+use Mistress\Http\Controllers\Controller;
+use Mistress\Punishment;
+use Redirect;
 
 class PunishmentController extends Controller
 {
@@ -20,81 +23,76 @@ class PunishmentController extends Controller
 
     public function punish()
     {
-        return view('dom.punishment.punish', ['punishments' => ['1' => 'Spanking', '2' => 'Extra Hard Spanking', '3' => 'Writing Assignment', '4' => 'Something Special']]);
+        $punishments = Auth::user()->punishmentList->lists('name', 'id');
+        return view('dom.punishment.punish', ['punishments' => $punishments]);
     }
-    
-    public function storePunishment() 
+
+    public function storePunishment()
     {
         $user = Auth::user();
+
+        $data = Input::all();
+
+        $punishment = $user->punishmentList->find($data['punishment']);
+
+        $data['name'] = $punishment->name;
+        $data['description'] = $punishment->description;
+        $data['assigned_on'] = Carbon::now();
+        unset($data['punishment']);
+
+        $user->sub->punishments()->create($data);
+
         $name = $user->sub->name;
-        \Flash::success('A punishment was assigned to ' . $name);
-        
+        Flash::success('A punishment was assigned to ' . $name);
+
         return redirect('/dom');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
+    public function index()
+    {
+        $punishments = Auth::user()->punishmentList;
+        return view('dom.punishment.index', compact('punishments'));
+    }
+
+
     public function create()
     {
-        //
+        return view('dom.punishment.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
     public function store()
     {
-        //
+        Auth::user()->punishmentList()->create(Input::all());
+        Flash::success('New Punishment Created.');
+        return Redirect::route('dom.punishment.index');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param Punishment $punishment
+     * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Punishment $punishment)
     {
-        $task = Auth::user()->tasks()->findOrFail($id);
-        //$task = Task::findOrFail($id);
-        return view('tasks.show')->withTask($task);
+        return view('dom.punishment.show', compact('punishment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
+    public function edit(Punishment $punishment)
     {
-        //
+        return view('dom.punishment.edit', compact('punishment'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
+    public function update(Punishment $punishment)
     {
-        //
+        $input = array_except(Input::all(), ['_method', '_token']);
+        $punishment->update($input);
+        Flash::success('Punishment Updated.');
+        return Redirect::route('dom.punishment.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
+    public function destroy(Punishment $punishment)
     {
-        //
+        $punishment->delete();
+        Flash::success('Punishment Deleted.');
+        return Redirect::route('dom.punishment.index');
     }
 }

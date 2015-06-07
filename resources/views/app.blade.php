@@ -42,7 +42,7 @@
                         <li><a href="{{ url('/') }}">Home</a></li>
 
                         <li><a href="{{ url('task') }}">Tasks</a></li>
-                        <li><a href="#">Punishments</a></li>
+                        <li><a href="{{ route('dom.punishment.index') }}">Punishments</a></li>
                         <li><a href="#">Confessions</a></li>
 
                         @if (!Auth::user()->submissive)

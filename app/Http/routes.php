@@ -10,6 +10,14 @@ Route::get('dom/mood/down', 'Dom\MoodController@down');
 
 Route::get('dom/punish', 'Dom\PunishmentController@punish');
 Route::post('dom/punish', 'Dom\PunishmentController@storePunishment');
+
+/*
+Route::bind('dom/punishment', function($value, $route) {
+    dd($value);
+    return Mistress\Punishment::where('id', $value)->first();
+});
+*/
+Route::model('punishment', 'Mistress\Punishment');
 Route::resource('dom/punishment', 'Dom\PunishmentController');
 
 
