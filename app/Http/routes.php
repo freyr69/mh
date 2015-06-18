@@ -20,8 +20,18 @@ Route::bind('dom/punishment', function($value, $route) {
 Route::model('punishment', 'Mistress\Punishment');
 Route::resource('dom/punishment', 'Dom\PunishmentController');
 
+Route::model('confession', 'Mistress\Confession');
+Route::resource('dom/confession', 'Dom\ConfessionController');
 
+Route::model('timer', 'Mistress\Timer');
+Route::get('dom/timer/{timer}/reset', ['as' => 'dom.timer.reset', 'uses' => 'Dom\TimerController@reset']);
+Route::resource('dom/timer', 'Dom\TimerController');
 
+Route::model('count', 'Mistress\Count');
+Route::get('dom/count/{count}/reset', ['as' => 'dom.count.reset', 'uses' => 'Dom\CountController@reset']);
+Route::get('dom/count/{count}/increment', ['as' => 'dom.count.increment', 'uses' => 'Dom\CountController@increment']);
+Route::get('dom/count/{count}/decrement', ['as' => 'dom.count.decrement', 'uses' => 'Dom\CountController@decrement']);
+Route::resource('dom/count', 'Dom\CountController');
 
 
 Route::get('sub/', 'Sub\HomeController@index');
@@ -35,7 +45,7 @@ Route::post('task/{task}/verify', 'TaskController@updateVerify');
 Route::resource('task', 'TaskController');
 
 Route::controllers([
-    'auth'     => 'Auth\AuthController',
+    'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
 ]);
 

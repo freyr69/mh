@@ -43,7 +43,9 @@
 
                         <li><a href="{{ url('task') }}">Tasks</a></li>
                         <li><a href="{{ route('dom.punishment.index') }}">Punishments</a></li>
-                        <li><a href="#">Confessions</a></li>
+                        <li><a href="{{ route('dom.confession.index') }}">Confessions</a></li>
+                        <li><a href="{{ route('dom.timer.index') }}">Timers</a></li>
+                        <li><a href="{{ route('dom.count.index') }}">Counts</a></li>
 
                         @if (!Auth::user()->submissive)
                             <li><a href="#">Admin</a></li>
@@ -55,10 +57,12 @@
                 </aside>
                 @endif
 
-                <section class="main-section">
+                <!--<section class="main-section">-->
+                <main class="inner-wrap">
                     @include('flash::message')
                     @yield('content')
-                </section>
+                </main>
+                <!--</section>-->
 
                 <a class="exit-off-canvas"></a>
             </div>

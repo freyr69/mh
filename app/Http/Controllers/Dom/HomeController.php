@@ -23,7 +23,23 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('dom.home', ['sub' => $user->sub, 'mood' => $user->sub->mood->mood]);
+        $mood = $user->sub->mood->mood;
+        $sub = $user->sub;
+        $tasks = $user->sub->tasks;
+        $punishments = $user->sub->punishments;
+        $timers = $user->sub->timers;
+        $counts = $user->sub->counts;
+        $confessions = $user->sub->confessions;
+
+        return view('dom.home', [
+            'sub' => $sub,
+            'mood' => $mood,
+            'tasks' => $tasks,
+            'punishments' => $punishments,
+            'timers' => $timers,
+            'counts' => $counts,
+            'confessions' => $confessions,
+        ]);
     }
 
 }
