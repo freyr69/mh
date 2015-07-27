@@ -2,45 +2,49 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="small-10 columns">
-            <h2 class="subheader">Manage Counters</h2>
-        </div>
-        <div class="small-2 columns">
-            <a href="{{route('dom.count.create')}}" class="button">Add New</a>
-        </div>
+<div class="block-header">
+        <h2>Counters</h2>
+        <ul class="actions">
+            <li><a href="{{route('dom.count.create')}}"><i class="zmdi zmdi-plus"></i></a></li>
+        </ul>
     </div>
 
-    <div class="row">
-        <div class="small-12 columns">
-
+    <div class="card">
+        <div class="listview lv-bordered lv-lg">
             @if (!$counts->count())
-                <h2>No counts have been configured.  Please add one.</h2>
+                <div class="lv-header-alt">
+                    <h2>No punishments have been configured.</h2>
+                </div>
             @else
-                <ul>
-                    @foreach($counts as $count)
-
-                        <li>
-                        {!! Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('dom.count.destroy', $count->id))) !!}
-
-                            {{ $count->name }} :: {{ $count->count }}
-
-                            {!! link_to_route('dom.count.increment', '+', array($count->id), array('class' => 'button tiny')) !!}
-                            {!! link_to_route('dom.count.decrement', '-', array($count->id), array('class' => 'button tiny')) !!}
-                            {!! link_to_route('dom.count.reset', 'Reset', array($count->id), array('class' => 'button tiny')) !!}
-                            {!! link_to_route('dom.count.edit', 'Edit', array($count->id), array('class' => 'button tiny')) !!}
-
-                            {!! Form::submit('Delete', array('class' => 'button tiny')) !!}
-
-                         {!! Form::close() !!}
-                        </li>
-
-                    @endforeach
-                </ul>
+                <div class="lv-body">
+                @foreach($counts as $count)
+                    <div class="lv-item media">
+                        <div class="media-block">
+                            {{ $count->count }}
+                        </div>
+                        <div class="media-body">
+                            <div clas="lv-title">{{ $count->name }}</div>
+                            <small class="lv-small">{{ $count->description }}</small>
+                            <div class="lv-actions actions dropdown">
+                                <a href="#" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="zmdi zmdi-more-vert"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>{!! link_to_route('dom.count.increment', 'Increment', array($count->id), array()) !!}</li>
+                                    <li>{!! link_to_route('dom.count.decrement', 'Decrement', array($count->id), array()) !!}</li>
+                                    <li>{!! link_to_route('dom.count.reset', 'Reset', array($count->id), array()) !!}</li>
+                                    <li>{!! link_to_route('dom.count.edit', 'Edit', array($count->id), array()) !!}</li>
+                                    <li>{!! link_to_route('dom.count.destroy', 'Delete', array($count->id), array()) !!}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                </div>
             @endif
-
         </div>
     </div>
+
 
 
 @endsection

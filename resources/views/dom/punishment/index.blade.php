@@ -2,42 +2,41 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="small-10 columns">
-            <h2 class="subheader">Manage Punishments</h2>
-        </div>
-        <div class="small-2 columns">
-            <a href="{{route('dom.punishment.create')}}" class="button">Add New</a>
-        </div>
+    <div class="block-header">
+        <h2>Punishments</h2>
+        <ul class="actions">
+            <li><a href="{{route('dom.punishment.create')}}"><i class="zmdi zmdi-plus"></i></a></li>
+        </ul>
     </div>
 
-    <div class="row">
-        <div class="small-12 columns">
-
+    <div class="card">
+        <div class="listview lv-bordered lv-lg">
             @if (!$punishments->count())
-                <h2>No punishments have been configured.  Please add one.</h2>
+                <div class="lv-header-alt">
+                    <h2>No punishments have been configured.</h2>
+                </div>
             @else
-                <ul>
-                    @foreach($punishments as $punishment)
-
-                        <li>
-                        {!! Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('dom.punishment.destroy', $punishment->id))) !!}
-
-                            <a href="{{ route('dom.punishment.show', $punishment->id) }}">{{ $punishment->name }}</a>
-
-                            {!! link_to_route('dom.punishment.edit', 'Edit', array($punishment->id), array('class' => 'button tiny')) !!}
-
-                            {!! Form::submit('Delete', array('class' => 'button tiny')) !!}
-
-                         {!! Form::close() !!}
-                        </li>
-
-                    @endforeach
-                </ul>
+                <div class="lv-body">
+                @foreach($punishments as $punishment)
+                    <div class="lv-item media">
+                        <div class="media-body">
+                            <div clas="lv-title">{{ $punishment->name }}</div>
+                            <small class="lv-small">{{ $punishment->description }}</small>
+                            <div class="lv-actions actions dropdown">
+                                <a href="#" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="zmdi zmdi-more-vert"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>{!! link_to_route('dom.punishment.edit', 'Edit', array($punishment->id), array()) !!}</li>
+                                    <li>{!! link_to_route('dom.punishment.destroy', 'Delete', array($punishment->id), array()) !!}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                </div>
             @endif
-
         </div>
     </div>
-
 
 @endsection

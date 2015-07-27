@@ -1,27 +1,28 @@
-<div class="row">
-    <div class="large-12 columns">
-        {!! Form::label('name', 'Name') !!}
-        {!! Form::text('name') !!}
+<div class="form-group fg-float">
+    <div class="fg-line">
+        {!! Form::text('name', null, array('class' => 'form-control fg-input')) !!}
     </div>
+    {!! Form::label('name', 'Name', array('class' => 'fg-label')) !!}   
 </div>
 
-<div class="row">
-    <div class="large-12 columns">
-        {!! Form::label('description', 'Description') !!}
-        {!! Form::textarea('description') !!}
+<div class="form-group fg-float">
+    <div class="fg-line">
+        {!! Form::textarea('description', null, array('class' => 'form-control fg-input')) !!}
     </div>
+    {!! Form::label('description', 'Description', array('class' => 'fg-label')) !!}   
 </div>
 
-<div class="row">
-    <div class="large-12 columns">
-        {!! Form::label('count', 'Count') !!}
-        {!! Form::input('number', 'count') !!}
+<div class="form-group fg-float">
+    <div class="fg-line">
+        {!! Form::text('count', null, array('class' => 'form-control fg-input')) !!}
     </div>
+    {!! Form::label('count', 'Count', array('class' => 'fg-label')) !!}   
 </div>
 
-<div class="row">
-    <div class="large-12 columns">
-        {!! Form::submit($submit_text) !!}
-    </div>
+
+<div class="form-group">
+    {!! Form::submit($submit_text, array('class' => 'btn btn-primary')) !!}
 </div>
+
+
 

@@ -2,41 +2,38 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="small-10 columns">
-            <h2 class="subheader">Manage Confessions</h2>
-        </div>
-        <div class="small-2 columns">
-        </div>
-    </div>
+<div class="block-header">
+    <h2>Confessions</h2>
+</div>
 
-    <div class="row">
-        <div class="small-12 columns">
-
+    <div class="card">
+        <div class="listview lv-bordered lv-lg">
             @if (!$confessions->count())
-                <h2>No confessions have been reported.</h2>
+                <div class="lv-header-alt">
+                    <h2>No confessions have been reported.</h2>
+                </div>
             @else
-                <ul>
-                    @foreach($confessions as $confession)
-
-                        <li>
-                        {!! Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('dom.confession.destroy', $confession->id))) !!}
-
-                            {{ $confession->description }}
-
-                            {!! link_to_route('dom.confession.edit', 'Edit', array($confession->id), array('class' => 'button tiny')) !!}
-
-                            {!! Form::submit('Delete', array('class' => 'button tiny')) !!}
-
-                         {!! Form::close() !!}
-                        </li>
-
-                    @endforeach
-                </ul>
+                <div class="lv-body">
+                @foreach($confessions as $confession)
+                    <div class="lv-item media">
+                        <div class="media-body">
+                            <div clas="lv-title">{{ $confession->created_at }}</div>
+                            <small class="lv-small">{{ $confession->description }}</small>
+                            <div class="lv-actions actions dropdown">
+                                <a href="#" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="zmdi zmdi-more-vert"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>{!! link_to_route('dom.confession.edit', 'Edit', array($confession->id), array()) !!}</li>
+                                    <li>{!! link_to_route('dom.confession.destroy', 'Delete', array($confession->id), array()) !!}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                </div>
             @endif
-
         </div>
     </div>
-
 
 @endsection

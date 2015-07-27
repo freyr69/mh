@@ -126,6 +126,7 @@ return [
          */
         'Laracasts\Flash\FlashServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+        'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
         /*
          * Application Service Providers...
          */
@@ -182,5 +183,6 @@ return [
         'Form'      => 'Illuminate\Html\FormFacade',
         'Html'      => 'Illuminate\Html\HtmlFacade',
         'Flash'     => 'Laracasts\Flash\Flash',
+        'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
     ],
 ];

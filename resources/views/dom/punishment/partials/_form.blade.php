@@ -1,27 +1,25 @@
-<div class="row">
-    <div class="large-12 columns">
-        {!! Form::label('name', 'Name') !!}
-        {!! Form::text('name') !!}
+<div class="form-group fg-float">
+    <div class="fg-line">
+        {!! Form::text('name', null, array('class' => 'form-control fg-input')) !!}
     </div>
+    {!! Form::label('name', 'Name', array('class' => 'fg-label')) !!}   
 </div>
 
-<div class="row">
-    <div class="large-12 columns">
-        {!! Form::label('description', 'Description') !!}
-        {!! Form::textarea('description') !!}
+<div class="form-group fg-float">
+    <div class="fg-line">
+        {!! Form::textarea('description', null, array('class' => 'form-control fg-input')) !!}
     </div>
+    {!! Form::label('description', 'Description', array('class' => 'fg-label')) !!}   
 </div>
 
-<div class="row">
-    <div class="large-12 columns">
-        {!! Form::label('severity', 'Severity') !!}
-        {!! Form::select('severity', ['1' => '1','2' => '2','3' => '3','4' => '4','5' => '5','6' => '6','7' => '7','8' => '8','9' => '9','10' => '10']) !!}
+<div class="form-group fg-float">
+    <div class="fg-line">
+        {!! Form::select('severity', ['1' => '1','2' => '2','3' => '3','4' => '4','5' => '5','6' => '6','7' => '7','8' => '8','9' => '9','10' => '10'], null, array('class' => 'form-control fg-input')) !!}
     </div>
+    {!! Form::label('severity', 'Severity', array('class' => 'fg-label')) !!}   
 </div>
 
-<div class="row">
-    <div class="large-12 columns">
-        {!! Form::submit($submit_text) !!}
-    </div>
+<div class="form-group">
+    {!! Form::submit($submit_text, array('class' => 'btn btn-primary')) !!}
 </div>
 

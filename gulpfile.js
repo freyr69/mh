@@ -12,47 +12,41 @@ var elixir = require('laravel-elixir');
  */
 
 /*
-elixir(function(mix) {
-    mix.less('app.less');
-});
-*/
+ elixir(function(mix) {
+ mix.less('app.less');
+ });
+ */
 
-elixir(function(mix) {
+elixir(function (mix) {
     var bowerPath = "bower_components";
 
-    mix.sass(
-        [
-            "style.scss"
-        ],
-        "public/css",
-        {
-            includePaths: [
-                bowerPath + "/foundation/scss"
-            ]
-        }
-    )
-    .scripts(
+    mix.less(
+        "main.less"
+    ).scripts(
         [
             "../" + bowerPath + "/jquery/dist/jquery.js",
-            "../" + bowerPath + "/fastclick/lib/fastclick.js",
-            "../" + bowerPath + "/jquery.cookie/jquery.cookie.js",
-            "../" + bowerPath + "/foundation/js/foundation.js",
+            "../" + bowerPath + "/bootstrap/dist/js/bootstrap.js",
+            "../" + bowerPath + "/jquery.nicescroll//jquery.nicescroll.js",
+            "../" + bowerPath + "/waves/dist/waves.js",
+            "../" + bowerPath + "/bootstrap-growl/jquery.bootstrap-growl.js",
+            "../" + bowerPath + "/sweetalert/dist/sweetalert.min.js",
             "app.js"
         ],
         "public/js/app.js"
+    ).styles(
+        [
+            'resources/assets/bower_components/animate.css/animate.css',
+            'resources/assets/bower_components/sweetalert/dist/sweetalert.css',
+            'resources/assets/bower_components/waves/dist/waves.min.css',
+            'public/css/main.css'
+        ], 'public/css/app.css', './'
+    ).version(
+        'public/css/app.css'
     ).scripts(
         [
             "../" + bowerPath + "/modernizr/modernizr.js"
         ],
         "public/js/modernizr.js"
     );
-    /*
-    .styles(
-        [
-            "style.css"
-        ],
-        "public/css/style.css",
-        "public/css"
-    );
-    */
+
 });

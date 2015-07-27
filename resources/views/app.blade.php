@@ -1,77 +1,92 @@
 <!DOCTYPE html>
-<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
-<html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mistress Helper</title>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <title>FLR Helper</title>
 
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-                <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+</head>
+<body>
 
-        <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 
-        <script src="{{ asset('js/modernizr.js') }}"></script>
-    </head>
-    <body>
+<header id="header">
+    <ul class="header-inner">
+        <li id="menu-trigger" data-trigger="#sidebar" class="">
+            <div class="line-wrap">
+                <div class="line top"></div>
+                <div class="line center"></div>
+                <div class="line bottom"></div>
+            </div>
+        </li>
+        <li class="logo hidden-xs"><a href="{{ url('/') }}">FLR Helper</a></li>
+        <li class="pull-right">
 
-        <div class="off-canvas-wrap" data-offcanvas>
-            <div class="inner-wrap">
-
-                <nav class="tab-bar">
-                    @if (Auth::check())
-                    <section class="left-small">
-                        <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
-                    </section>
-                    @endif
-
-                    <section class="middle tab-bar-section">
-                        <h1>Mistress Helper</h1>
-                    </section>
-                </nav>
-                @if (Auth::check())
-                <aside class="left-off-canvas-menu">
-                    <ul class="off-canvas-list">
-                        <li><a href="{{ url('/') }}">Home</a></li>
-
-                        <li><a href="{{ url('task') }}">Tasks</a></li>
-                        <li><a href="{{ route('dom.punishment.index') }}">Punishments</a></li>
-                        <li><a href="{{ route('dom.confession.index') }}">Confessions</a></li>
-                        <li><a href="{{ route('dom.timer.index') }}">Timers</a></li>
-                        <li><a href="{{ route('dom.count.index') }}">Counts</a></li>
-
-                        @if (!Auth::user()->submissive)
-                            <li><a href="#">Admin</a></li>
-                        @endif
-
-                        <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
-
+            @if (Auth::check())
+            <ul class="top-menu top-menu-profile">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle ink-reaction profile-dropdown" data-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ Gravatar::src(Auth::user()->email) }}" alt="">
+                        <span class="profile-info">
+                            {{ Auth::user()->name }}
+                            
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li class="dropdown-header">Configuration</li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Other stuff</a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{{ url('/auth/logout') }}">
+                                <i class="fa fa-fw fa-power-off text-danger"></i>
+                                Logout
+                            </a>
+                        </li>
                     </ul>
-                </aside>
-                @endif
+                </li>
+            </ul>
+            @endif
 
-                <!--<section class="main-section">-->
-                <main class="inner-wrap">
-                    @include('flash::message')
-                    @yield('content')
-                </main>
-                <!--</section>-->
+        </li>
+    </ul>
+</header>
 
-                <a class="exit-off-canvas"></a>
+
+
+<section id="main">
+    <aside id="sidebar" class="">
+        <div class="sidebar-inner">
+            <div class="si-inner">
+                <ul class="main-menu">
+                    <li class="active"><a href="{{ url('/') }}"><i class="zmdi zmdi-home"></i>Home</a></li>
+                    @if (Auth::check())
+                    <li><a href="{{ url('task') }}"><i class="zmdi zmdi-view-list"></i>Tasks</a></li>
+                    <li><a href="{{ route('dom.punishment.index') }}"><i class="zmdi zmdi-alert-triangle"></i>Punishments</a></li>
+                    <li><a href="{{ route('dom.confession.index') }}"><i class="zmdi zmdi-hearing"></i>Confessions</a></li>
+                    <li><a href="{{ route('dom.timer.index') }}"><i class="zmdi zmdi-timer"></i>Timers</a></li>
+                    <li><a href="{{ route('dom.count.index') }}"><i class="zmdi zmdi-replay"></i>Counts</a></li>
+                    @endif
+                </ul>
             </div>
         </div>
+    </aside>
 
-        <!-- Scripts -->
-        <script src="{{ asset('/js/app.js') }}"></script>
-        <script>
-//$('#flash-overlay-modal').modal();
-        </script>
-    </body>
+    <section id="content">
+        <div class="container">
+            @include('flash::message')
+            @yield('content')
+        </div>
+    </section>
+
+</section>
+
+
+<script src="{{ asset('/js/app.js') }}"></script>
+
+</body>
 </html>
+
+
