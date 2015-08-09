@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,12 +63,17 @@
             <div class="si-inner">
                 <ul class="main-menu">
                     <li class="active"><a href="{{ url('/') }}"><i class="zmdi zmdi-home"></i>Home</a></li>
-                    @if (Auth::check())
+                    @if (Auth::check() && !Auth::user()->submissive)
+                    <li><a href="{{ route('dom.rule.index') }}"><i class="zmdi zmdi-alert-triangle"></i>Rules</a></li>
                     <li><a href="{{ url('task') }}"><i class="zmdi zmdi-view-list"></i>Tasks</a></li>
-                    <li><a href="{{ route('dom.punishment.index') }}"><i class="zmdi zmdi-alert-triangle"></i>Punishments</a></li>
+                    <li><a href="{{ route('dom.punishment.index') }}"><i class="zmdi zmdi-ruler"></i>Punishments</a></li>
+                    <li><a href="{{ route('dom.assigned_punishment.index') }}"><i class="zmdi zmdi-ruler"></i>Assigned Punishments</a></li>
                     <li><a href="{{ route('dom.confession.index') }}"><i class="zmdi zmdi-hearing"></i>Confessions</a></li>
                     <li><a href="{{ route('dom.timer.index') }}"><i class="zmdi zmdi-timer"></i>Timers</a></li>
                     <li><a href="{{ route('dom.count.index') }}"><i class="zmdi zmdi-replay"></i>Counts</a></li>
+                    @else
+                    <li><a href="{{ route('sub.rule.index') }}"><i class="zmdi zmdi-alert-triangle"></i>Rules</a></li>
+                    <li><a href="{{ url('task') }}"><i class="zmdi zmdi-view-list"></i>Tasks</a></li>
                     @endif
                 </ul>
             </div>

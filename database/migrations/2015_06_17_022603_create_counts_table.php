@@ -17,7 +17,8 @@ class CreateCountsTable extends Migration {
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->integer('count')->default(0);;
+            $table->boolean('sub_visible')->default(true);
+            $table->integer('count')->default(0);
             $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
 

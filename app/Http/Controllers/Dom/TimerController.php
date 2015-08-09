@@ -38,6 +38,13 @@ class TimerController extends Controller
         $timer->save();
         return Redirect::route('dom.timer.index');
     }
+    
+    public function resetDashboard(Timer $timer)
+    {
+        $timer->duration = Carbon::now();
+        $timer->save();
+        return Redirect::route('dom.dashboard');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -56,9 +63,12 @@ class TimerController extends Controller
      */
     public function store()
     {
-        $data = Input::all();
-        $data['duration'] = Carbon::now();
-        Auth::user()->sub->timers()->create($data);
+        $input = Input::all();
+        $input['duration'] = Carbon::now();
+        if (!isset($input['sub_visible'])) {
+            $input['sub_visible'] = false;
+        }
+        Auth::user()->sub->timers()->create($input);
         Flash::success('New Timer Created.');
         return Redirect::route('dom.timer.index');
     }
@@ -92,6 +102,9 @@ class TimerController extends Controller
     public function update(Timer $timer)
     {
         $input = array_except(Input::all(), ['_method', '_token']);
+        if (!isset($input['sub_visible'])) {
+            $input['sub_visible'] = false;
+        }
         $timer->update($input);
         Flash::success('Timer Updated.');
         return Redirect::route('dom.timer.index');

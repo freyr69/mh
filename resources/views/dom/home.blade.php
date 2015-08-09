@@ -75,15 +75,19 @@
 
             <div class="card">
                 <div class="listview lv-bordered lv-lg">
-                    <div class="lv-header-alt"><h2>Punishments</h2></div>
+                    <div class="lv-header-alt"><h2>Assigned Punishments</h2></div>
                     <div class="lv-body">
-                        @foreach($punishments as $punishment)
+                        @foreach($assignedPunishments as $punishment)
                             <div class="lv-item media">
                                 <div class="media-body">
-                                    <div class="lv-title">{{ $punishment->name }}</div>
+                                    <div class="lv-title">{{ $punishment->name }}  <span class="label label-primary">{{ $punishment->severity + 1 }}</span></div>
                                     <small class="lv-small">{{ $punishment->description }} </small>
+                                    <small class="lv-small">{{ $punishment->notes }} </small>
                                     <div class="lv-actions actions">
-                                        <a href="{{ route('dom.punishment.edit', array($punishment->id)) }}">
+                                        <a href="{{ route('dom.assigned_punishment.complete', array($punishment->id)) }}">
+                                            <i class="zmdi zmdi-check"></i>
+                                        </a>
+                                        <a href="{{ route('dom.assigned_punishment.edit', array($punishment->id)) }}">
                                             <i class="zmdi zmdi-edit"></i>
                                         </a>
                                     </div>
@@ -107,9 +111,12 @@
                         @foreach($timers as $timer)
                             <div class="lv-item media">
                                 <div class="media-body">
-                                    <div class="lv-title">{{ $timer->name }} - {{ $timer->duraction }}</div>
+                                    <div class="lv-title">{{ $timer->name }} - {{ $timer->duration->diffForHumans() }}</div>
                                     <small class="lv-small">{{ $timer->description }} </small>
                                     <div class="lv-actions actions">
+                                        <a href="{{ route('dom.timer.resetd', array($timer->id)) }}">
+                                            <i class="zmdi zmdi-rotate-left"></i>
+                                        </a>
                                         <a href="{{ route('dom.timer.edit', array($timer->id)) }}">
                                             <i class="zmdi zmdi-edit"></i>
                                         </a>
@@ -133,9 +140,21 @@
                         @foreach($counts as $count)
                             <div class="lv-item media">
                                 <div class="media-body">
-                                    <div class="lv-title">{{ $count->name }} - {{ $count->count }}</div>
+                                    <div class="lv-title">
+                                        {{ $count->name }} 
+                                        <span class="label label-primary">{{ $count->count }}</span>
+                                    </div>
                                     <small class="lv-small">{{ $count->description }} </small>
                                     <div class="lv-actions actions">
+                                        <a href="{{ route('dom.count.incrementd', array($count->id)) }}">
+                                            <i class="zmdi zmdi-plus"></i>
+                                        </a>
+                                        <a href="{{ route('dom.count.decrementd', array($count->id)) }}">
+                                            <i class="zmdi zmdi-minus"></i>
+                                        </a>
+                                        <a href="{{ route('dom.count.resetd', array($count->id)) }}">
+                                            <i class="zmdi zmdi-rotate-left"></i>
+                                        </a>
                                         <a href="{{ route('dom.count.edit', array($count->id)) }}">
                                             <i class="zmdi zmdi-edit"></i>
                                         </a>
@@ -156,18 +175,31 @@
                 <div class="listview lv-bordered lv-lg">
                     <div class="lv-header-alt"><h2>Confessions</h2></div>
                     <div class="lv-body">
-                        @foreach($confessions as $confession)
+                        @if (count($confessions) > 0)
+                            @foreach($confessions as $confession)
+                                <div class="lv-item media">
+                                    <div class="media-body">
+                                        <div class="lv-title">{{ $confession->description }}</div>
+                                        <div class="lv-actions actions">
+                                            <a href="{{ route('dom.confession.confirmd', array($confession->id)) }}">
+                                                <i class="zmdi zmdi-check"></i>
+                                            </a>
+                                            <a href="{{ route('dom.confession.edit', array($confession->id)) }}">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
                             <div class="lv-item media">
                                 <div class="media-body">
-                                    <div class="lv-title">{{ $confession->description }}</div>
+                                    <div class="lv-title">No new confessions...</div>
                                     <div class="lv-actions actions">
-                                        <a href="{{ route('dom.confession.edit', array($confession->id)) }}">
-                                            <i class="zmdi zmdi-edit"></i>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

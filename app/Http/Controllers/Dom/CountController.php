@@ -51,6 +51,10 @@ class CountController extends Controller
         if (!$data['count']) {
             $data['count'] = 0;
         }
+        
+        if (!isset($input['sub_visible'])) {
+            $input['sub_visible'] = false;
+        }
         Auth::user()->sub->counts()->create($data);
         Flash::success('New Counter Created.');
         return Redirect::route('dom.count.index');
@@ -75,6 +79,27 @@ class CountController extends Controller
         $count->count--;
         $count->save();
         return Redirect::route('dom.count.index');
+    }
+    
+    public function resetDashboard(Count $count)
+    {
+        $count->count = 0;
+        $count->save();
+        return Redirect::route('dom.dashboard');
+    }
+
+    public function incrementDashboard(Count $count)
+    {
+        $count->count++;
+        $count->save();
+        return Redirect::route('dom.dashboard');
+    }
+
+    public function decrementDashboard(Count $count)
+    {
+        $count->count--;
+        $count->save();
+        return Redirect::route('dom.dashboard');
     }
 
     /**
@@ -108,6 +133,9 @@ class CountController extends Controller
     public function update(Count $count)
     {
         $input = array_except(Input::all(), ['_method', '_token']);
+        if (!isset($input['sub_visible'])) {
+            $input['sub_visible'] = false;
+        }
         $count->update($input);
         Flash::success('Count Updated.');
         return Redirect::route('dom.count.index');

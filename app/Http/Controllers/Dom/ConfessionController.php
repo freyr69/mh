@@ -80,6 +80,9 @@ class ConfessionController extends Controller
     public function update(Confession $confession)
     {
         $input = array_except(Input::all(), ['_method', '_token']);
+        if (!isset($input['confirmed'])) {
+            $input['confirmed'] = false;
+        }
         $confession->update($input);
         Flash::success('Confession Updated.');
         return Redirect::route('dom.confession.index');
@@ -98,4 +101,23 @@ class ConfessionController extends Controller
         return Redirect::route('dom.confession.index');
     }
 
+    /**
+     * Mark the confession as confirmed
+     * 
+     * @param Confession $confession
+     * @return Response
+     */
+    public function confirm(Confession $confession)
+    {
+        $confession->confirmed = true;
+        $confession->save();
+        return Redirect::route('dom.confession.index');
+    }
+    
+    public function confirmDashboard(Confession $confession)
+    {
+        $confession->confirmed = true;
+        $confession->save();
+        return Redirect::route('dom.dashboard');
+    }
 }

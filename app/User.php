@@ -85,4 +85,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('Mistress\Count', 'user_id', 'id');
     }
 
+    public function rules()
+    {
+        return $this->hasMany('Mistress\Rule', 'user_id', 'id');
+    }
 }

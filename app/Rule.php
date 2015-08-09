@@ -1,0 +1,13 @@
+<?php
+
+namespace Mistress;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Rule extends Model
+{
+
+    protected $table    = 'rules';
+    protected $fillable = ['title', 'description'];
+
+}

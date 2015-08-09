@@ -17,7 +17,14 @@
                 @foreach($confessions as $confession)
                     <div class="lv-item media">
                         <div class="media-body">
-                            <div clas="lv-title">{{ $confession->created_at }}</div>
+                            <div clas="lv-title">
+                                {{ $confession->created_at }}
+                                @if ($confession->confirmed)
+                                <span class="label label-default">Confirmed</span>
+                                @else
+                                <span class="label label-warning">Unconfirmed</span>
+                                @endif
+                            </div>
                             <small class="lv-small">{{ $confession->description }}</small>
                             <div class="lv-actions actions dropdown">
                                 <a href="#" data-toggle="dropdown" aria-expanded="true">

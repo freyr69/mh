@@ -23,7 +23,12 @@
                             {{ $count->count }}
                         </div>
                         <div class="media-body">
-                            <div clas="lv-title">{{ $count->name }}</div>
+                            <div clas="lv-title">
+                                {{ $count->name }}
+                                @if ($count->sub_visible)
+                                <span class="label label-default">Visible</span>
+                                @endif
+                            </div>
                             <small class="lv-small">{{ $count->description }}</small>
                             <div class="lv-actions actions dropdown">
                                 <a href="#" data-toggle="dropdown" aria-expanded="true">

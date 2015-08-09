@@ -20,13 +20,18 @@
                 @foreach($timers as $timer)
                     <div class="lv-item media">
                         <div class="media-body">
-                            <div clas="lv-title">{{ $timer->name }} - {{ $timer->duration->diffForHumans() }}</div>
+                            <div clas="lv-title">{{ $timer->name }} - {{ $timer->duration->diffForHumans() }}
+                            @if ($timer->sub_visible)
+                                <span class="label label-default">Visible</span>
+                            @endif
+                            </div>
                             <small class="lv-small">{{ $timer->description }}</small>
                             <div class="lv-actions actions dropdown">
                                 <a href="#" data-toggle="dropdown" aria-expanded="true">
                                     <i class="zmdi zmdi-more-vert"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>{!! link_to_route('dom.timer.reset', 'Reset', array($timer->id), array()) !!}</li>
                                     <li>{!! link_to_route('dom.timer.edit', 'Edit', array($timer->id), array()) !!}</li>
                                     <li>{!! link_to_route('dom.timer.destroy', 'Delete', array($timer->id), array()) !!}</li>
                                 </ul>

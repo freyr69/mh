@@ -120,21 +120,23 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
-        'Illuminate\Html\HtmlServiceProvider',
+        //'Illuminate\Html\HtmlServiceProvider',
         /*
          * Third Party Service Providers 
          */
-        'Laracasts\Flash\FlashServiceProvider',
-        'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-        'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
+        Collective\Html\HtmlServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
+        Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
         /*
          * Application Service Providers...
          */
-        'Mistress\Providers\AppServiceProvider',
-        'Mistress\Providers\BusServiceProvider',
-        'Mistress\Providers\ConfigServiceProvider',
-        'Mistress\Providers\EventServiceProvider',
-        'Mistress\Providers\RouteServiceProvider',
+        Mistress\Providers\AppServiceProvider::class,
+        Mistress\Providers\BusServiceProvider::class,
+        Mistress\Providers\ConfigServiceProvider::class,
+        Mistress\Providers\EventServiceProvider::class,
+        Mistress\Providers\RouteServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------
@@ -180,9 +182,11 @@ return [
         'URL'       => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
-        'Form'      => 'Illuminate\Html\FormFacade',
-        'Html'      => 'Illuminate\Html\HtmlFacade',
-        'Flash'     => 'Laracasts\Flash\Flash',
-        'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
+        //'Form'      => Illuminate\Html\FormFacade::class,
+        //'Html'      => Illuminate\Html\HtmlFacade::class,
+        'Form'      => Collective\Html\FormFacade::class,
+        'Html'      => Collective\Html\HtmlFacade::class,
+        'Flash'     => Laracasts\Flash\Flash::class,
+        'Gravatar'  => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
     ],
 ];

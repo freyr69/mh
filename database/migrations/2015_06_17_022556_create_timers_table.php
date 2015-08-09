@@ -17,6 +17,7 @@ class CreateTimersTable extends Migration {
             $table->increments('id');
             $table->string('name');
             $table->text('description');
+            $table->boolean('sub_visible')->default(true);
             $table->dateTime('duration');
             $table->integer('user_id')->unsigned()->index();
             $table->timestamps();

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfilesTable extends Migration
+class CreateRulesTable extends Migration
 {
 
     /**
@@ -13,15 +13,11 @@ class CreateProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profiles', function(Blueprint $table) {
-            /* @var $table \Illuminate\Database\Schema\Blueprint */
+
+        Schema::create('rules', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('real_name');
-            $table->string('play_name');
-            $table->string('push_id');
-            $table->text('about');
-            $table->string('gender');
-            $table->string('picture');
+            $table->string('title');
+            $table->text('description');
             $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
 
@@ -39,7 +35,7 @@ class CreateProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('profiles');
+        Schema::drop('rules');
     }
 
 }

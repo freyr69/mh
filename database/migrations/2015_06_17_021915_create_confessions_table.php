@@ -16,6 +16,7 @@ class CreateConfessionsTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('description');
+            $table->binary('confirmed')->default(false);
             $table->integer('user_id')->unsigned()->index();
 			$table->timestamps();
 
